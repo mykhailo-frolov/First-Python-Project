@@ -33,9 +33,6 @@
 # <hr>
 # 
 
-# ***Note***:- If you are working in IBM Cloud Watson Studio, please replace the command for installing nbformat from `!pip install nbformat==4.2.0` to simply `!pip install nbformat`
-# 
-
 # In[1]:
 
 
@@ -56,9 +53,6 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-# In Python, you can ignore warnings using the warnings module. You can use the filterwarnings function to filter or ignore specific warning messages or categories.
-# 
-
 # In[3]:
 
 
@@ -70,7 +64,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # ## Define Graphing Function
 # 
 
-# In this section, we define the function `make_graph`. You don't have to know how the function works, you should only care about the inputs. It takes a dataframe with stock data (dataframe must contain Date and Close columns), a dataframe with revenue data (dataframe must contain Date and Revenue columns), and the name of the stock.
+# In this section, we define the function `make_graph`. It takes a dataframe with stock data (dataframe must contain Date and Close columns), a dataframe with revenue data (dataframe must contain Date and Revenue columns), and the name of the stock.
 # 
 
 # In[4]:
@@ -93,7 +87,7 @@ def make_graph(stock_data, revenue_data, stock):
     fig.show()
 
 
-# ## Question 1: Use yfinance to Extract Stock Data
+#1: Use yfinance to Extract Stock Data
 # 
 
 # Using the `Ticker` function enter the ticker symbol of the stock we want to extract data on to create a ticker object. The stock is Tesla and its ticker symbol is `TSLA`.
@@ -114,7 +108,7 @@ tesla = yf.Ticker("TSLA")
 tesla_data = tesla.history(period = 'max')
 
 
-# **Reset the index** using the `reset_index(inplace=True)` function on the tesla_data DataFrame and display the first five rows of the `tesla_data` dataframe using the `head` function. Take a screenshot of the results and code from the beginning of Question 1 to the results below.
+# **Reset the index** using the `reset_index(inplace=True)` function on the tesla_data DataFrame and display the first five rows of the `tesla_data` dataframe using the `head` function.
 # 
 
 # In[7]:
@@ -124,7 +118,7 @@ tesla_data.reset_index(inplace=True)
 tesla_data.head()
 
 
-# ## Question 2: Use Webscraping to Extract Tesla Revenue Data
+# ## 2: Use Webscraping to Extract Tesla Revenue Data
 # 
 
 # Use the `requests` library to download the webpage https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0220EN-SkillsNetwork/labs/project/revenue.htm Save the text of the response as a variable named `html_data`.
@@ -148,22 +142,6 @@ soup = BeautifulSoup(html_data)
 
 
 # Using `BeautifulSoup` or the `read_html` function extract the table with `Tesla Revenue` and store it into a dataframe named `tesla_revenue`. The dataframe should have columns `Date` and `Revenue`.
-# 
-
-# <details><summary>Click here if you need help locating the table</summary>
-# 
-# ```
-#     
-# Below is the code to isolate the table, you will now need to loop through the rows and columns like in the previous lab
-#     
-# soup.find_all("tbody")[1]
-#     
-# If you want to use the read_html function the table is located at index 1
-# 
-# 
-# ```
-# 
-# </details>
 # 
 
 # In[27]:
@@ -200,7 +178,7 @@ tesla_revenue.dropna(inplace=True)
 tesla_revenue = tesla_revenue[tesla_revenue['Revenue'] != ""]
 
 
-# Display the last 5 row of the `tesla_revenue` dataframe using the `tail` function. Take a screenshot of the results.
+# Display the last 5 row of the `tesla_revenue` dataframe using the `tail` function.
 # 
 
 # In[30]:
@@ -209,7 +187,7 @@ tesla_revenue = tesla_revenue[tesla_revenue['Revenue'] != ""]
 tesla_revenue.tail()
 
 
-# ## Question 3: Use yfinance to Extract Stock Data
+# ## 3: Use yfinance to Extract Stock Data
 # 
 
 # Using the `Ticker` function enter the ticker symbol of the stock we want to extract data on to create a ticker object. The stock is GameStop and its ticker symbol is `GME`.
@@ -230,8 +208,7 @@ gamestop = yf.Ticker("GME")
 gme_data = gamestop.history(period='max')
 
 
-# **Reset the index** using the `reset_index(inplace=True)` function on the gme_data DataFrame and display the first five rows of the `gme_data` dataframe using the `head` function. Take a screenshot of the results and code from the beginning of Question 3 to the results below.
-# 
+# **Reset the index** using the `reset_index(inplace=True)` function on the gme_data DataFrame and display the first five rows of the `gme_data` dataframe using the `head` function.
 
 # In[33]:
 
@@ -240,7 +217,7 @@ gme_data.reset_index(inplace=True)
 gme_data.head()
 
 
-# ## Question 4: Use Webscraping to Extract GME Revenue Data
+# ## 4: Use Webscraping to Extract GME Revenue Data
 # 
 
 # Use the `requests` library to download the webpage https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0220EN-SkillsNetwork/labs/project/stock.html. Save the text of the response as a variable named `html_data`.
@@ -263,23 +240,7 @@ html_data  = requests.get(url).text
 soup = BeautifulSoup(html_data)
 
 
-# Using `BeautifulSoup` or the `read_html` function extract the table with `GameStop Revenue` and store it into a dataframe named `gme_revenue`. The dataframe should have columns `Date` and `Revenue`. Make sure the comma and dollar sign is removed from the `Revenue` column using a method similar to what you did in Question 2.
-# 
-
-# <details><summary>Click here if you need help locating the table</summary>
-# 
-# ```
-#     
-# Below is the code to isolate the table, you will now need to loop through the rows and columns like in the previous lab
-#     
-# soup.find_all("tbody")[1]
-#     
-# If you want to use the read_html function the table is located at index 1
-# 
-# 
-# ```
-# 
-# </details>
+# Using `BeautifulSoup` or the `read_html` function extract the table with `GameStop Revenue` and store it into a dataframe named `gme_revenue`. The dataframe should have columns `Date` and `Revenue`. Make sure the comma and dollar sign is removed from the `Revenue` column using a method similar to what you did in 2.
 # 
 
 # In[36]:
@@ -293,8 +254,7 @@ gme_revenue.columns = ['Date', 'Revenue']
 gme_revenue["Revenue"] = gme_revenue['Revenue'].str.replace(',|\$',"")
 
 
-# Display the last five rows of the `gme_revenue` dataframe using the `tail` function. Take a screenshot of the results.
-# 
+# Display the last five rows of the `gme_revenue` dataframe using the `tail` function.
 
 # In[37]:
 
@@ -302,7 +262,7 @@ gme_revenue["Revenue"] = gme_revenue['Revenue'].str.replace(',|\$',"")
 gme_revenue.tail()
 
 
-# ## Question 5: Plot Tesla Stock Graph
+# ## 5: Plot Tesla Stock Graph
 # 
 
 # Use the `make_graph` function to graph the Tesla Stock Data, also provide a title for the graph. The structure to call the `make_graph` function is `make_graph(tesla_data, tesla_revenue, 'Tesla')`. Note the graph will only show data upto June 2021.
@@ -314,7 +274,7 @@ gme_revenue.tail()
 make_graph(tesla_data, tesla_revenue, 'Tesla')
 
 
-# ## Question 6: Plot GameStop Stock Graph
+# ## 6: Plot GameStop Stock Graph
 # 
 
 # Use the `make_graph` function to graph the GameStop Stock Data, also provide a title for the graph. The structure to call the `make_graph` function is `make_graph(gme_data, gme_revenue, 'GameStop')`. Note the graph will only show data upto June 2021.
@@ -324,26 +284,3 @@ make_graph(tesla_data, tesla_revenue, 'Tesla')
 
 
 make_graph(gme_data, gme_revenue, 'GameStop')
-
-
-# <h2>About the Authors:</h2> 
-# 
-# <a href="https://www.linkedin.com/in/joseph-s-50398b136/">Joseph Santarcangelo</a> has a PhD in Electrical Engineering, his research focused on using machine learning, signal processing, and computer vision to determine how videos impact human cognition. Joseph has been working for IBM since he completed his PhD.
-# 
-# Azim Hirjani
-# 
-
-# ## Change Log
-# 
-# | Date (YYYY-MM-DD) | Version | Changed By    | Change Description        |
-# | ----------------- | ------- | ------------- | ------------------------- |
-# | 2022-02-28        | 1.2     | Lakshmi Holla | Changed the URL of GameStop |
-# | 2020-11-10        | 1.1     | Malika Singla | Deleted the Optional part |
-# | 2020-08-27        | 1.0     | Malika Singla | Added lab to GitLab       |
-# 
-# <hr>
-# 
-# ## <h3 align="center"> © IBM Corporation 2020. All rights reserved. <h3/>
-# 
-# <p>
-# 
