@@ -26,8 +26,6 @@
 #         <li>Question 5: Plot Tesla Stock Graph</li>
 #         <li>Question 6: Plot GameStop Stock Graph</li>
 #     </ul>
-# <p>
-#     Estimated Time Needed: <strong>30 min</strong></p>
 # </div>
 # 
 # <hr>
